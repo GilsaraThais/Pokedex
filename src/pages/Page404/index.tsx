@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { Container } from "./style";
+import page404 from "../../assets/page404.png";
 
 export function Page404() {
+  const navigate = useNavigate();
   return (
     <Container>
-      <h1>Page404</h1>
+      <img src={page404} alt="page404" />
+      <button onClick={() => navigate("/", { replace: true })}>Voltar</button>
     </Container>
   );
 }
