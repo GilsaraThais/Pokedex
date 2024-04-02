@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "./style";
 import { useQueryPokemonDetails } from "../../hooks/useQueryPokemonDetails";
 import pokeball from "../../assets/pokeball.png";
@@ -8,7 +8,7 @@ export function Details() {
   const { name } = useParams();
   const { data, isLoading, error } = useQueryPokemonDetails(name!);
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   if (error) console.error(error);
 
@@ -57,21 +57,16 @@ export function Details() {
             {data.stats.map((stat) => {
               return (
                 <div className="stats">
-                  <span className="statsName">{stat.stat.name}
-                  </span>
+                  <span className="statsName">{stat.stat.name}</span>
                   <progress max={200} value={stat.base_stat} />
 
-                  <span className="statsValue">
-                    {stat.base_stat}
-                  </span>
+                  <span className="statsValue">{stat.base_stat}</span>
                 </div>
-              )
-            }
-            )}
+              );
+            })}
           </div>
         </div>
       )}
-      <h1>{name}</h1>
     </Container>
   );
 }
