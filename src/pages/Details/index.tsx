@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "./style";
-import { useQueryPokemonDetails } from "../../hooks/useQueryPokemonDetails";
+import { useQueryPokemonDetails } from "../../hooks/useQueryPekemonDetails";
 import pokeball from "../../assets/pokeball.png";
 import { CardType } from "../../components/CardType";
 
@@ -15,6 +15,7 @@ export function Details() {
   return (
     <Container>
       {isLoading && <span className="loading">Loading...</span>}
+
       {!isLoading && error && <span className="loading">Error...</span>}
 
       {data && (
@@ -22,11 +23,10 @@ export function Details() {
           <button className="buttonBackPage" onClick={() => navigate(-1)}>
             &lt; voltar
           </button>
+
           <div className="pokemonImage">
             <img
-              src={
-                data.sprites.other["official-artwork"].front_default || pokeball
-              }
+              src={data.sprites.other["official-artwork"].front_default || pokeball}
               alt={data.name}
             />
           </div>
@@ -38,17 +38,12 @@ export function Details() {
 
             <div className="sizePokemon">
               <span>Height: {data.height}0cm</span>
-              <span>Weight: {data.weight / 10}km</span>
+              <span>Weight: {data.weight / 10}kg</span>
             </div>
+
             <div className="boxTypes">
               {data.types.map((type) => {
-                return (
-                  <CardType
-                    key={type.type.name}
-                    type={type.type.name}
-                    size={16}
-                  />
-                );
+                return <CardType key={type.type.name} type={type.type.name} size={16} />;
               })}
             </div>
           </div>
@@ -57,10 +52,15 @@ export function Details() {
             {data.stats.map((stat) => {
               return (
                 <div className="stats">
-                  <span className="statsName">{stat.stat.name}</span>
+                  <span className="statsName">
+                    {stat.stat.name}
+                  </span>
+
                   <progress max={200} value={stat.base_stat} />
 
-                  <span className="statsValue">{stat.base_stat}</span>
+                  <span className="statsValue">
+                    {stat.base_stat}
+                  </span>
                 </div>
               );
             })}

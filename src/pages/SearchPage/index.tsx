@@ -8,6 +8,9 @@ export function SearchPage() {
   const pokemonName = searchParams[0].get("q");
 
   const { data, isLoading, error } = useQueryPokemonFiltered(pokemonName!);
+
+  if (error) console.error(error);
+
   return (
     <Container>
       {isLoading && <span className="loading">Loading...</span>}
@@ -17,6 +20,7 @@ export function SearchPage() {
       {data && (
         <>
           <h1>{`Encontrado ${data.length} resultado(s) para "${pokemonName}"`}</h1>
+
           <div className="gridCards">
             {data?.map((pokemon) => {
               return (

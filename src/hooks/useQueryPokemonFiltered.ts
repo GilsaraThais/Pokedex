@@ -10,13 +10,11 @@ async function getPokemonFiltered(name: string) {
     if (name) return pokemon.name.includes(name.toLowerCase());
   });
 
-  const pokemonPromise = filteredPokemon.map(
-    async (pokemon: { url: string }) => {
-      const response = await fetch(pokemon.url);
-      const data = await response.json();
-      return data;
-    }
-  );
+  const pokemonPromise = filteredPokemon.map(async (pokemon: { url: string }) => {
+    const response = await fetch(pokemon.url);
+    const data = await response.json();
+    return data;
+  });
 
   const pokemonData = await Promise.all(pokemonPromise);
 
@@ -25,7 +23,7 @@ async function getPokemonFiltered(name: string) {
 
 export function useQueryPokemonFiltered(name: string) {
   const query = useQuery({
-    queryKey: [`getPokemoFiltered${name}`],
+    queryKey: [`getPokemonFiltered`, name],
     queryFn: () => getPokemonFiltered(name),
   });
 

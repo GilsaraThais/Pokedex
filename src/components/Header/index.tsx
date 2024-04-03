@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Container } from "./style";
-import { SubmitHandler, useForm } from "react-hook-form";
 import pokemonLogo from "../../assets/pokemon-logo.png";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-type Inputs = {
+type Input = {
   inputSearch: string;
 };
 
@@ -15,19 +15,19 @@ export function Header() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Input>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Input> = (data) => {
     navigate(`/search?q=${data.inputSearch}`);
     reset();
   };
 
   return (
     <Container>
-      <Link to={"/?page=1"}>
+      <Link to={"/"}>
         <img
           src={pokemonLogo}
-          alt="logo com texto escrito pokémon, cor amarela e borda azul"
+          alt="logo amerela com borda azul escrita o texto pokémon"
         />
       </Link>
 
@@ -42,7 +42,7 @@ export function Header() {
             id="inputSearch"
             placeholder="Pesquisar Pokémon"
             {...register("inputSearch", {
-              required: "Preencha o nome do pokémon",
+              required: "Preencha o nome do pokémon!",
             })}
           />
 
